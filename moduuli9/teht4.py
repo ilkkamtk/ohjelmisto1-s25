@@ -1,19 +1,28 @@
 from classes.auto import Auto
+import random
+from prettytable import PrettyTable
 
 autot = []
+tulostettavat = PrettyTable()
+tulostettavat.field_names = ["Rekisteritunnus", "nopeus", "huippunopeus", "matka"]
 
-for i in range(10):
-    # arvo huippunopeus 100-200
-    huippunopeus = 0
-    autot.append(Auto("ABC-" + str(i + 1), huippunopeus))
+for i in range(1, 11):
+    huippunopeus = random.randint(100, 200)
+    autot.append(Auto("ABC-" + str(i), huippunopeus))
 
 kokonaismatka = 0
 while kokonaismatka < 10000:
     for auto in autot:
-        # arvo nopeuden muutos -10 - 15
-        # kutsu kiihdytä
+        auton_nopeus = random.randint(-10, 15)
+        auto.kiihdytä(auton_nopeus)
         auto.kulje(1)
-        # hae matkan arvo, jos yli 10000, lopeta kisa asettamalla auton matka
-        # kokonaismatkaksi
+        if auto.matka > kokonaismatka:
+            kokonaismatka = auto.matka
 
-# googlaa joku taulukkokirjasto tulostamiseen
+
+autot.sort(key = lambda car: car.matka, reverse = True)
+
+for auto in autot:
+    tulostettavat.add_row([auto.rekisteritunnus, auto.nopeus, auto.huippunopeus, auto.matka])
+
+print(tulostettavat)

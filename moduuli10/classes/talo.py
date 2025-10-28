@@ -12,3 +12,10 @@ class Talo:
         print(f"Ajat hissillä {hissin_numero}.")
         self.hissit[hissin_numero - 1].siirry_kerrokseen(kohdekerros)
         print("--------------------------------")
+
+    def palohälytys(self):
+        print('Palohälytys!!!')
+        for i, hissi in enumerate(self.hissit):
+            print(f'Hissi numero {i + 1} siirtyy alas.')
+            hissi.siirry_kerrokseen(hissi.alin_kerros)
+
